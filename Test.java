@@ -47,28 +47,7 @@ public class Test implements Runnable {
         int t = sc.nextInt();
         StringBuilder ans = new StringBuilder("");
         while (t-- > 0) {
-            int n = sc.nextInt(),x,c[] = new int[n];
-            Pair[] apr = new Pair[n];
-            for(int i=0;i<n;i++){
-                x=sc.nextInt();
-                apr[i] = new Pair(x,i);
-            }   
-            Arrays.sort(apr,(a,b)->{
-                return a.x-b.x;
-            });
-            int mx = 0;
-            for(int i=0;i<n;i++){
-                if(apr[i].x>mx){
-                    c[apr[i].y] = mx;
-                    mx++;
-                }else{
-                    c[apr[i].y] = apr[i].x;
-                }
-            }
-            for(Integer e:c){
-                ans.append(e+" ");
-            }
-            ans.append("\n");
+            
         }
         out.println(ans);
     }
