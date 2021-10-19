@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
  
 public class Test implements Runnable {
  
@@ -45,33 +47,30 @@ public class Test implements Runnable {
         int t = sc.nextInt();
         StringBuilder ans = new StringBuilder("");
         while (t-- > 0) {
-            int n=sc.nextInt(),a=sc.nextInt(),b=sc.nextInt();
-            if(n==1){
-                ans.append("Yes\n");
-                continue;
-            }
-            if(a==1){
-                if((n-1)%b==0){
-                    ans.append("Yes\n");
+            int n = sc.nextInt(),x,c[] = new int[n];
+            Pair[] apr = new Pair[n];
+            for(int i=0;i<n;i++){
+                x=sc.nextInt();
+                apr[i] = new Pair(x,i);
+            }   
+            Arrays.sort(apr,(a,b)->{
+                return a.x-b.x;
+            });
+            int mx = 0;
+            for(int i=0;i<n;i++){
+                if(apr[i].x>mx){
+                    c[apr[i].y] = mx;
+                    mx++;
                 }else{
-                    ans.append("No\n");
+                    c[apr[i].y] = apr[i].x;
                 }
-                continue;
             }
-            while(n>1){
-                while(n%a==0&&a!=1){
-                    n/=a;
-                }
-                if(n>1)
-                    n-=b;
+            for(Integer e:c){
+                ans.append(e+" ");
             }
-            if(n==1){
-                ans.append("Yes\n");
-            }else{
-                ans.append("No\n");
-            }
+            ans.append("\n");
         }
-        out.println(ans); 
+        out.println(ans);
     }
  
     /****************************************************************************************************************************************************************************************/
@@ -79,6 +78,10 @@ public class Test implements Runnable {
     public static int log2(int N) {
         int result = (int) (Math.log(N) / Math.log(2));
         return result;
+    }
+
+    static double setPrecision(double num,int precision){
+        return BigDecimal.valueOf(num).setScale(precision,RoundingMode.HALF_UP).doubleValue();
     }
  
     static long modInverse(long a, int mod) {
@@ -267,10 +270,10 @@ public class Test implements Runnable {
     }
  
     static class Pair implements Comparable<Pair> { // Pair Class
-        long x;
-        long y;
+        int x;
+        int y;
  
-        public Pair(long x, long y) {
+        public Pair(int x, int y) {
             this.x = x;
             this.y = y;
         }
